@@ -4,7 +4,7 @@ var Keycloak = require('keycloak-connect');
 
 const kcConfig = {
   realm: 'ConstrSW',
-  'auth-server-url': process.env.AUTH_URL,
+  'auth-server-url': "http://52.91.106.206:8080/auth/",
   'ssl-required': 'external',
   'bearer-only': true,
   resource: 'constrsw-auth',
