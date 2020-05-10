@@ -12,9 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4",
     "body-parser": "^1.19.0",
-    "keycloak-connect": "^6.0.1"
+    "express": "^4.16.4",
+    "keycloak-connect": "^6.0.1",
+    "mongoose": "^5.9.13"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

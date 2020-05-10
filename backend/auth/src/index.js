@@ -1,6 +1,17 @@
 const express = require('express');
 var bodyParser = require('body-parser');
 var Keycloak = require('keycloak-connect');
+var mongo = require('mongoose');
+
+
+
+setTimeout(function() {
+  var mongoaddr = 'mongodb://constr-sw-2020-1-grupo4_mongodb_1:27017/users';
+  console.log(mongoaddr);
+  mongo.connect(mongoaddr);
+}, 3000);
+
+
 
 const kcConfig = {
   realm: 'ConstrSW',
