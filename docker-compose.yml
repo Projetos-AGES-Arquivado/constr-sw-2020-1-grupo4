@@ -7,7 +7,7 @@ services:
       context: ./backend/auth
       dockerfile: build/dev/Dockerfile
     volumes:
-        - ./backend/auth/src/:/home/node/app
+        - ./backend/auth/:/home/node/app
     ports:
       - 3456:3456
     networks:
@@ -64,8 +64,6 @@ services:
       - mongo-volume:/data/db
     networks:
       - constrsw
-
-
 
 volumes:
   constrsw-pgdata:
