@@ -1,0 +1,153 @@
+ 
+swagger: "2.0"
+info:
+  description: ""
+  version: "1.0.0"
+  title: "API De Autenticação"
+host: "users-users-group"
+basePath: "/v1"
+tags:
+- name: "users"
+  description: "usuários"
+
+schemes:
+- "https"
+paths:
+  /resourse:
+    post:
+      tags:
+      - "users"
+      summary: "criação de um usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
+  /resource/id:
+    delete:
+      tags:
+      - "users"
+      summary: "exclusão de um usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+        401: 
+          description: "Unauthorized"
+    put:
+      tags:
+      - "users"
+      summary: "atualizar todas informações de usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
+    patch:
+      tags:
+      - "users"
+      summary: "atualiza propriedades especificas do usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
+  /resource:
+    get:
+      tags:
+      - "users"
+      summary: "busca usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
+    post:
+      tags:
+      - "group-users"
+      summary: "criação de um usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
+    delete:
+      tags:
+      - "group-users"
+      summary: "exclusão de um usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+        401: 
+          description: "Unauthorized"
+    put:
+      tags:
+      - "group-users"
+      summary: "atualizar todas informações de usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
+    patch:
+      tags:
+      - "group-users"
+      summary: "atualiza propriedades especificas do usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+        401:
+          description: "Unauthorized"
