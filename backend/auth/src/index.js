@@ -1,38 +1,23 @@
 const express = require('express');
-var bodyParser = require('body-parser');
-var Keycloak = require('keycloak-connect');
-
-const kcConfig = {
-  "realm": "Test",
-  "auth-server-url": "http://host.docker.internal:8080/auth",
-  "ssl-required": "external",
-  "resource": "test-client",
-  "public-client": true,
-  "confidential-port": 0
-};
-
-const keycloak = new Keycloak({}, kcConfig);
-keycloak.redirectToLogin = () => false;
+const bodyParser = require('body-parser');
+const usersRouter = require('./routes/users');
+const errHandlerMiddleware = require('./middlewares/errHandler');
+const { NotFoundError } = require('./errors');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(keycloak.middleware());
+app.use('/users', usersRouter);
 
-app.get('/ping', function(req, res) {
+app.get('/ping', function (req, res) {
   res.send('pong');
 });
 
-app.post('/login', (req, res) => {
-  keycloak.grantManager
-    .obtainDirectly(req.body.login, req.body.password)
-    .then(grant => {
-      res.json(grant).status(200);
-    })
-    .catch(error => {
-      res.send(error).status(401);
-    });
+const httpPort = process.env.HTTP_PORT || 3456;
+
+app.use('*', (req, res, next) => {
+  next(new NotFoundError());
 });
 
-module.exports.start = port =>
-  app.listen(port, () => console.log(`Listening on port ${port}`));
+app.use(errHandlerMiddleware);
+app.listen(httpPort, () => console.log(`Listening on port ${httpPort}`));
