@@ -53,6 +53,7 @@ services:
 
   mongodb:
     image: mongo:latest
+    container_name: mongo
     environment:
       - MONGO_INITDB_DATABASE=users
       - MONGO_INITDB_ROOT_USERNAME=root

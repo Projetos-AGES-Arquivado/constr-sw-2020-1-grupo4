@@ -6,7 +6,7 @@ const Role = require('./role');
 
 mongoose.connect(
   process.env.MONGO_CONNECTION ||
-    'mongodb://constr-sw-2020-1-grupo4_mongodb_1:27017/users'
+    'mongodb://mongo:27017/users'
 );
 
 module.exports = { User, Role };
