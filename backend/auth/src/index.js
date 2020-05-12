@@ -1,13 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const usersRouter = require('./routes/users');
+const rolesRouter = require('./routes/roles');
 const errHandlerMiddleware = require('./middlewares/errHandler');
 const { NotFoundError } = require('./errors');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/users', usersRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/roles', rolesRouter);
 
 app.get('/ping', function (req, res) {
   res.send('pong');
