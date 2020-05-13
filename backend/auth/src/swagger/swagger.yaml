@@ -209,8 +209,8 @@ definitions:
         type: "string"
       email:
         type: "string"
-      role:
-        $ref: "#/definitions/RoleRequest"
+      roleName:
+        type: "string"
   RoleRequest:
     type: "object"
     properties:

@@ -301,8 +301,8 @@
         "email": {
           "type": "string"
         },
-        "role": {
-          "$ref": "#/definitions/RoleRequest"
+        "roleName": {
+          "type": "string"
         }
       }
     },
