@@ -29,7 +29,7 @@ paths:
       parameters:
         - in: "body"
           name: "body"
-          description: "Novo cliente a ser cadastrado"
+          description: "Usuário ser cadastrado"
           required: true
           schema:
             $ref: "#/definitions/UserRequest"
@@ -58,6 +58,7 @@ paths:
             $ref: "#/definitions/AllUsers"
         401:
           description: "Unauthorized"
+  
   /users/{id}:
     get:
       tags:
@@ -66,9 +67,9 @@ paths:
       parameters:
         - in: path
           name: id
-          type: integer
+          type: string
           required: true
-          description: Numeric ID of the user to get
+          description: Id do usuário
       description: ""
       operationId: ""
       consumes:
@@ -82,6 +83,37 @@ paths:
             $ref: "#/definitions/UserResponse"
         401:
           description: "Unauthorized"
+
+    put:
+      tags:
+      - "users"
+      summary: "Atualiza completamente um usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id do usuário
+        - in: "body"
+          name: "body"
+          description: "Usuário a ser atualizado"
+          required: true
+          schema:
+            $ref: "#/definitions/UserRequest"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: '#/definitions/UserResponse'
+        401:
+          description: "Unauthorized"
+
     delete:
       tags:
       - "users"
@@ -89,9 +121,9 @@ paths:
       parameters:
         - in: path
           name: id
-          type: integer
+          type: string
           required: true
-          description: Numeric ID of the user to get
+          description: Id do usuário
       description: ""
       operationId: ""
       consumes:
@@ -106,6 +138,41 @@ paths:
         401: 
           description: "Unauthorized"
           
+  /users/{id}/{attribute}:
+    patch:
+      tags:
+      - "users"
+      summary: "Atualiza completamente um usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id do usuário
+        - in: path
+          name: attribute
+          type: string
+          required: true
+          description: Atributo a ser atualizado
+        - in: "body"
+          name: "body"
+          description: "Usuário a ser atualizado"
+          required: false
+          schema:
+            $ref: "#/definitions/UserRequest"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: '#/definitions/UserResponse'
+        401:
+          description: "Unauthorized"
           
           
   /roles:
@@ -122,7 +189,7 @@ paths:
       parameters:
         - in: "body"
           name: "body"
-          description: "Novo cliente a ser cadastrado"
+          description: "Novo usuário a ser cadastrado"
           required: true
           schema:
             $ref: "#/definitions/RoleRequest"
@@ -159,9 +226,9 @@ paths:
       parameters:
         - in: path
           name: id
-          type: integer
+          type: string
           required: true
-          description: Numeric ID of the user to get
+          description: Id do grupo de usuário
       description: ""
       operationId: ""
       consumes:
@@ -175,6 +242,37 @@ paths:
             $ref: "#/definitions/RoleResponse"
         401:
           description: "Unauthorized"
+
+    put:
+      tags:
+      - "group-users"
+      summary: "Atualiza completamente um grupo de usuários"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id do grupo de usuário
+        - in: "body"
+          name: "body"
+          description: "Grupo de usuário a ser atualizado"
+          required: true
+          schema:
+            $ref: "#/definitions/RoleRequest"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RoleResponse"
+        401:
+          description: "Unauthorized"
+
     delete:
       tags:
       - "group-users"
@@ -182,9 +280,9 @@ paths:
       parameters:
         - in: path
           name: id
-          type: integer
+          type: string
           required: true
-          description: Numeric ID of the user to get
+          description: Id do grupo de usuário
       description: ""
       operationId: ""
       consumes:
@@ -198,6 +296,43 @@ paths:
             $ref: "#/definitions/RoleResponse"
         401: 
           description: "Unauthorized"
+
+  /roles/{id}/{attribute}:
+    patch:
+      tags:
+      - "group-users"
+      summary: "Atualiza completamente um grupo de usuários"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Id do grupo de usuários
+        - in: path
+          name: attribute
+          type: string
+          required: true
+          description: Atributo a ser atualizado
+        - in: "body"
+          name: "body"
+          description: "Grupo de usuários a ser atualizado"
+          required: false
+          schema:
+            $ref: "#/definitions/RoleRequest"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: '#/definitions/UserResponse'
+        401:
+          description: "Unauthorized"
+          
           
 definitions:
   UserRequest:
