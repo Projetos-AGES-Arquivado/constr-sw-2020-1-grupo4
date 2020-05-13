@@ -1,0 +1,255 @@
+ 
+swagger: "2.0"
+info:
+  description: ""
+  version: "1.0.0"
+  title: "API De Usuários e Grupos de Usuários"
+host: "52.91.106.206:3456"
+basePath: "/api"
+tags:
+- name: "users"
+  description: "usuários"
+- name: "group-users"
+  description: "usuários"
+  
+schemes:
+- "http"
+paths:
+  /users:
+    post:
+      tags:
+      - "users"
+      summary: "Cria um usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Novo cliente a ser cadastrado"
+          required: true
+          schema:
+            $ref: "#/definitions/UserRequest"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: '#/definitions/UserResponse'
+        401:
+          description: "Unauthorized"
+
+    get:
+      tags:
+      - "users"
+      summary: "Busca todos os usuários"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/AllUsers"
+        401:
+          description: "Unauthorized"
+  /users/{id}:
+    get:
+      tags:
+      - "users"
+      summary: "Busca um usuário"
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: Numeric ID of the user to get
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        401:
+          description: "Unauthorized"
+    delete:
+      tags:
+      - "users"
+      summary: "Remove um usuário"
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: Numeric ID of the user to get
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        401: 
+          description: "Unauthorized"
+          
+          
+          
+  /roles:
+    post:
+      tags:
+      - "group-users"
+      summary: "Cria um grupo de usuários"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Novo cliente a ser cadastrado"
+          required: true
+          schema:
+            $ref: "#/definitions/RoleRequest"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RoleResponse"
+        401:
+          description: "Unauthorized"
+
+    get:
+      tags:
+      - "group-users"
+      summary: "Busca todos os grupos de usuários"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/AllRoles"
+        401:
+          description: "Unauthorized"
+  /roles/{id}:
+    get:
+      tags:
+      - "group-users"
+      summary: "Busca um grupo de usuários"
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: Numeric ID of the user to get
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RoleResponse"
+        401:
+          description: "Unauthorized"
+    delete:
+      tags:
+      - "group-users"
+      summary: "Remove um grupo de usuários"
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: Numeric ID of the user to get
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/RoleResponse"
+        401: 
+          description: "Unauthorized"
+          
+definitions:
+  UserRequest:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      nickname:
+        type: "string"
+      email:
+        type: "string"
+      role:
+        $ref: "#/definitions/RoleRequest"
+  RoleRequest:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+  AllUsers:
+    type: array
+    items:
+      $ref: "#/definitions/UserResponse"
+  
+  UserResponse:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      nickname:
+        type: "string"
+      email:
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      role:
+        $ref: "#/definitions/RoleResponse"
+  RoleResponse:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+  AllRoles:
+    type: array
+    items:
+      $ref: "#/definitions/RoleResponse"
