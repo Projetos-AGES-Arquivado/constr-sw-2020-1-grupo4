@@ -16,6 +16,18 @@ router.get('/', RoleController.get);
 
 router.get('/:id', RoleController.getById);
 
+router.put(
+  '/:id', 
+  validatorMiddleware(createSchema), 
+  RoleController.update
+);
+
+router.patch(
+  '/:id/name',  
+  validatorMiddleware(createSchema), 
+  RoleController.update
+);
+
 router.delete('/:id', RoleController.delete);
 
 module.exports = router;

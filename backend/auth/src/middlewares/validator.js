@@ -8,7 +8,7 @@ const validatorMiddleware = (schema) => (
   const validation = schema.validate(req, {
     abortEarly: false,
     stripUnknown: true,
-    allowUnknown: true,
+    allowUnknown: false,
   });
 
   if (validation.error) {

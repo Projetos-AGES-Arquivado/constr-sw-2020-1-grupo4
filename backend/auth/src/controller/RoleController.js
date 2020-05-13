@@ -45,6 +45,19 @@ module.exports = ({
         }
     },
 
+    update: async (req, res, next) => {
+      try {
+        const { id } = req.params;
+        const user = await Role.findByIdAndUpdate({ _id: id }, { ...req.body }, {new: true});
+        if (!user) {
+          throw new ResourceNotFoundError();
+        }
+        res.send(user);
+      } catch (err) {
+        next(err);
+      }
+  },
+
 
     delete: async (req, res, next) => {
         try {

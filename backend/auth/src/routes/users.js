@@ -1,6 +1,6 @@
 const express = require('express');
 const validatorMiddleware = require('../middlewares/validator');
-const createUserSchema = require('../schemas/create-user-schema');
+const { createUserSchema, updateUserSchema } = require('../schemas/create-user-schema');
 const UserController = require('../controller/UserController');
 
 
@@ -15,6 +15,10 @@ router.post(
 router.get('/', UserController.get);
 
 router.get('/:id', UserController.getById);
+
+router.put('/:id', UserController.put);
+
+router.patch('/:id/:attribute', validatorMiddleware(updateUserSchema), UserController.patch);
 
 router.delete('/:id', UserController.delete);
 
