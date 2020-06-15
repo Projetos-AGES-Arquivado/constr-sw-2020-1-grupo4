@@ -6,9 +6,18 @@ const errHandlerMiddleware = require('./middlewares/errHandler');
 const { NotFoundError } = require('./errors');
 const swaggerUi = require('swagger-ui-express');
 const openApiDocumentation = require('./swagger/swagger.json');
+const cors = require('cors');
 
 
 const app = express();
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE,PATCH');
+  app.use(cors());
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/users', usersRouter);
