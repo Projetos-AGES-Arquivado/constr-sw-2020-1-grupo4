@@ -5,26 +5,30 @@ module.exports = ({
 
     create: async (req, res, next) => {
         try {
-          const { name, nickname, email, roleName } = req.body;
+          const { name, nickname, email, roles } = req.body;
     
           const duplicatedCount = await User.count({ email });
           if (duplicatedCount !== 0) {
             throw new DuplicatedResourceError();
           }
     
-          let roleId;
-    
-          const role = await Role.find({ name: roleName });
-          if (role) {
-            roleId = role._id;
-          } else {
-            const newRole = await Role.create({
-              name: roleName,
-              createdAt: new Date(),
-              updatedAt: new Date(),
-            });
-            roleId = newRole._id;
+          let rolesId = [];
+          for(roleId of roles) {
+            const role = await Role.find({ name: roleId });
+            console.log("roles "+roleId);
+            if (role) {
+              rolesId.push(role._id);
+            } else {
+              const newRole = await Role.create({
+                name: roleId,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              });
+              rolesId.push(newRole._id);
+            }
           }
+
+          console.log("AQUI "+rolesId);
     
           const user = await User.create({
             name,
@@ -32,7 +36,7 @@ module.exports = ({
             email,
             createdAt: new Date(),
             updatedAt: new Date(),
-            role: roleId,
+            roles,
           });
     
           res.send(user);
@@ -52,20 +56,22 @@ module.exports = ({
     put: async (req, res, next) => {
       try {
         const { id } = req.params;
-        const { roleName } = req.body;
+        const { roles } = req.body;
 
-        if(roleName){
-          const roleDb = await Role.find({ name: roleName })[0];
+        if(roles){
+          for(role of roles) {
+            const roleDb = await Role.find({ name: role })[0];
 
-          if (roleDb) {
-            req.body.role = roleDb._id;
-          } else {
-            const newRole = await Role.create({
-              name: roleName,
-              createdAt: new Date(),
-              updatedAt: new Date(),
-            });
-            req.body.role = newRole._id;
+            if (roleDb) {
+              req.body.roles.push(newRole._id);
+            } else {
+              const newRole = await Role.create({
+                name: role,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              });
+              req.body.roles.push(newRole._id);
+            }
           }
         }
         
@@ -86,20 +92,20 @@ module.exports = ({
         const { id, attribute } = req.params;
         let attributeToPatch = attribute;
 
-        if(attribute == 'roleName'){
+        if(attribute == 'roles'){
           attributeToPatch = 'role';
-          const name = req.body.roleName;
+          const name = req.body.roles;
           const roleDb = await Role.find({ name })[0];
 
           if (roleDb) {
-            req.body.roleName = roleDb._id;
+            req.body.roles = roleDb._id;
           } else {
             const newRole = await Role.create({
               name,
               createdAt: new Date(),
               updatedAt: new Date(),
             });
-            req.body.roleName = newRole._id;
+            req.body.roles = newRole._id;
           }
         }
 

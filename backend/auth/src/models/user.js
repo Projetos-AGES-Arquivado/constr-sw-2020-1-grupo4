@@ -6,10 +6,10 @@ const User = mongoose.model('User', {
   email: String,
   createdAt: Date,
   updatedAt: Date,
-  role: {
+  roles: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Role',
-  },
+  }],
 });
 
 module.exports = User;

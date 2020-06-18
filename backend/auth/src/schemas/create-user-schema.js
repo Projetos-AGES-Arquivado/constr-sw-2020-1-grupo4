@@ -5,7 +5,7 @@ const createUserSchema = joi.object({
     name: joi.string().required(),
     nickname: joi.string().required(),
     email: joi.string().email().required(),
-    roleName: joi.string().required(),
+    roles: joi.array().items(joi.string()).required(),
   })
 });
 
@@ -14,7 +14,7 @@ const updateUserSchema =  joi.object({
     name: joi.string(),
     nickname: joi.string(),
     email: joi.string().email(),
-    roleName: joi.string(),
+    roles: joi.array().items(joi.string()),
   }).or('name', 'nickname', 'email', 'roleName')
 });
 
