@@ -13,14 +13,13 @@ module.exports = ({
           }
     
           let rolesId = [];
-          for(roleId of roles) {
-            const role = await Role.find({ name: roleId });
-            console.log("roles "+roleId);
+          for(roleName of roles) {
+            const role = await Role.findOne({ name: roleName });
             if (role) {
               rolesId.push(role._id);
             } else {
               const newRole = await Role.create({
-                name: roleId,
+                name: roleName,
                 createdAt: new Date(),
                 updatedAt: new Date(),
               });
@@ -28,7 +27,6 @@ module.exports = ({
             }
           }
 
-          console.log("AQUI "+rolesId);
     
           const user = await User.create({
             name,
@@ -36,7 +34,7 @@ module.exports = ({
             email,
             createdAt: new Date(),
             updatedAt: new Date(),
-            roles,
+            roles: rolesId,
           });
     
           res.send(user);
@@ -59,20 +57,22 @@ module.exports = ({
         const { roles } = req.body;
 
         if(roles){
+          let rolesId = [];
           for(role of roles) {
-            const roleDb = await Role.find({ name: role })[0];
+            const roleDb = await Role.findOne({ name: role });
 
             if (roleDb) {
-              req.body.roles.push(newRole._id);
+              rolesId.push(roleDb._id);
             } else {
               const newRole = await Role.create({
                 name: role,
                 createdAt: new Date(),
                 updatedAt: new Date(),
               });
-              req.body.roles.push(newRole._id);
+              rolesId.push(newRole._id);
             }
           }
+          req.body.roles = rolesId;
         }
         
         const user = await User.findByIdAndUpdate({ _id: id }, { ...req.body }, {new: true});
@@ -92,22 +92,27 @@ module.exports = ({
         const { id, attribute } = req.params;
         let attributeToPatch = attribute;
 
-        if(attribute == 'roles'){
-          attributeToPatch = 'role';
-          const name = req.body.roles;
-          const roleDb = await Role.find({ name })[0];
+        if(attribute == 'roles') {
+          attributeToPatch = 'roles';  
+          const names = req.body.roles;
+          let rolesId = [];
+            for(name of names) {
 
-          if (roleDb) {
-            req.body.roles = roleDb._id;
-          } else {
-            const newRole = await Role.create({
-              name,
-              createdAt: new Date(),
-              updatedAt: new Date(),
-            });
-            req.body.roles = newRole._id;
+              const roleDb = await Role.findOne({ name });
+
+              if (roleDb) {
+                rolesId.push(roleDb._id)
+              } else {
+                const newRole = await Role.create({
+                  name,
+                  createdAt: new Date(),
+                  updatedAt: new Date(),
+                });
+                rolesId.push(newRole._id)
+              }
+            }
+            req.body.roles = rolesId;
           }
-        }
 
         const user = await User.findByIdAndUpdate({ _id: id }, { [attributeToPatch]: req.body[attribute] }, {new: true});
         if (!user) {
